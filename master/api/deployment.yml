@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: master
   labels:
     app: api
   name: api
@@ -16,7 +17,7 @@ spec:
         app: api
     spec:
       containers:
-        - image: ghcr.io/bombnp/cloud-final-services/api:master
+        - image: asia-southeast1-docker.pkg.dev/cloud-final-346107/docker/cloud-final-services/api
           name: api
           ports:
             - containerPort: 8000
