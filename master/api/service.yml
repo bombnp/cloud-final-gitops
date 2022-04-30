@@ -3,7 +3,8 @@ kind: Service
 metadata:
   labels:
     app: api
-  name: api
+  name: api-master
+  namespace: master
 spec:
   type: ClusterIP
   ports:
