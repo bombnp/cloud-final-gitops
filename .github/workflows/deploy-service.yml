@@ -6,6 +6,9 @@ on:
     types: 
       - deploy-service
 
+permissions:
+  id-token: 'write'
+  
 env:
   GKE_CLUSTER: autopilot-cluster-1
   GKE_ZONE: asia-southeast1
