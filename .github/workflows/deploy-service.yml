@@ -1,0 +1,41 @@
+
+name: Deploy service to GKE
+
+on: 
+  repository_dispatch:
+    types: 
+      - deploy-service
+
+env:
+  GKE_CLUSTER: autopilot-cluster-1
+  GKE_ZONE: asia-southeast1
+  NAMESPACE: ${{ github.event.client_payload.namespace }}
+  SERVICE: ${{ github.event.client_payload.service }}
+
+jobs:
+  build:
+    name: Setup, Build, and Publish Docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      # Get the GKE credentials so we can deploy to the cluster
+      - uses: google-github-actions/get-gke-credentials@v0.2.1
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ secrets.GKE_SA_KEY }}
+
+      # Rollout new updates
+      - name: Publish
+        run: |-
+          kubectl apply -f ${{ env.NAMESPACE }}/${{ env.SERVICE }}/deployment.yml -n ${{ env.NAMESPACE }}
+          kubectl rollout restart deployment/${{ env.SERVICE }} -n ${{ env.NAMESPACE }}

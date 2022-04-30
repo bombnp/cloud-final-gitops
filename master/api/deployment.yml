@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api
+spec:
+  # do not include replicas in the manifests if you want replicas to be controlled by HPA
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - image: ghcr.io/bombnp/cloud-final-services/api:master
+          name: api
+          ports:
+            - containerPort: 8000
+              name: http
+          resources: 
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi
+          env:
+            - name: SERVER_PORT
+              value: "8000"
+          volumeMounts:
+            - name: api-secret
+              mountPath: "/app/config"
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: api-secret
+          secret:
+            secretName: api-secret
+            items:
+              - key: config.yml
+                path: config.yml
