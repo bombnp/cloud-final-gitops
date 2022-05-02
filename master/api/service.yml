@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: api
-  name: api-master
+  name: api
   namespace: master
 spec:
   type: ClusterIP

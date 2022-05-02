@@ -4,7 +4,7 @@ metadata:
   namespace: master
   labels:
     app: api
-  name: api-master
+  name: api
 spec:
   # do not include replicas in the manifests if you want replicas to be controlled by HPA
   replicas: 1
