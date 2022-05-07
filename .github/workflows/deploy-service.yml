@@ -11,8 +11,8 @@ permissions:
   id-token: 'write'
   
 env:
-  GKE_CLUSTER: autopilot-cluster-1
-  GKE_ZONE: asia-southeast1
+  GKE_CLUSTER: cluster-2
+  GKE_ZONE: us-west1-a
   NAMESPACE: ${{ github.event.client_payload.namespace }}
   SERVICE: ${{ github.event.client_payload.service }}
 

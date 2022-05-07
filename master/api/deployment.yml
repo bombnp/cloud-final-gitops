@@ -17,7 +17,7 @@ spec:
         app: api
     spec:
       containers:
-        - image: asia-southeast1-docker.pkg.dev/cloud-final-346107/cloud-final-services/api:master
+        - image: us-west1-docker.pkg.dev/cloud-final-346107/cloud-final-services/api:master
           name: api
           ports:
             - containerPort: 8000
