@@ -412,10 +412,12 @@ primary:
   ## @param primary.resources.requests.cpu The requested cpu for the PostgreSQL Primary containers
   ##
   resources:
-    limits: {}
-    requests: 
+    limits: 
       memory: 256Mi
       cpu: 100m
+    requests: 
+      memory: 128Mi
+      cpu: 50m
   ## Pod Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ## @param primary.podSecurityContext.enabled Enable security context
