@@ -29,6 +29,8 @@ spec:
           env:
             - name: SERVER_PORT
               value: "8000"
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /app/credentials/credentials.json
           volumeMounts:
             - name: api-secret
               mountPath: "/app/config"
@@ -46,3 +48,9 @@ spec:
             items:
               - key: config.yml
                 path: config.yml
+        - name: gke-pod-default-service-account
+          secret:
+            secretName: gke-pod-default-service-account
+            items:
+              - key: credentials.json
+                path: credentials.json
