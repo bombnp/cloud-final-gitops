@@ -18,6 +18,7 @@ spec:
     spec:
       containers:
         - image: us-west1-docker.pkg.dev/cloud-final-346107/cloud-final-services/api:master
+          imagePullPolicy: Always
           name: api
           ports:
             - containerPort: 8000
@@ -25,7 +26,7 @@ spec:
           resources: 
             limits:
               cpu: 100m
-              memory: 400Mi
+              memory: 200Mi
           env:
             - name: SERVER_PORT
               value: "8000"
