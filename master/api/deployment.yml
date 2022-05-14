@@ -35,6 +35,9 @@ spec:
             - name: api-secret
               mountPath: "/app/config"
               readOnly: true
+            - name: gke-pod-default-service-account
+              mountPath: "/app/credentials"
+              readOnly: true
           readinessProbe:
             httpGet:
               path: /

@@ -30,6 +30,9 @@ spec:
             - name: pricecollector-secret
               mountPath: "/app/config"
               readOnly: true
+            - name: gke-pod-default-service-account
+              mountPath: "/app/credentials"
+              readOnly: true
       volumes:
         - name: pricecollector-secret
           secret:
