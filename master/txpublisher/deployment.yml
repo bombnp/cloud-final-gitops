@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: master
+  labels:
+    app: txpublisher
+  name: txpublisher
+spec:
+  # do not include replicas in the manifests if you want replicas to be controlled by HPA
+  replicas: 1
+  selector:
+    matchLabels:
+      app: txpublisher
+  template:
+    metadata:
+      labels:
+        app: txpublisher
+    spec:
+      containers:
+        - image: us-west1-docker.pkg.dev/cloud-final-346107/cloud-final-services/txpublisher:master
+          name: txpublisher
+          resources: 
+            limits:
+              cpu: 100m
+              memory: 200Mi
+          volumeMounts:
+            - name: txpublisher-secret
+              mountPath: "/app/config"
+              readOnly: true
+      volumes:
+        - name: txpublisher-secret
+          secret:
+            secretName: txpublisher-secret
+            items:
+              - key: config.yml
+                path: config.yml

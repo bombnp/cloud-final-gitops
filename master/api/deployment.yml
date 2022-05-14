@@ -25,7 +25,7 @@ spec:
           resources: 
             limits:
               cpu: 100m
-              memory: 512Mi
+              memory: 400Mi
           env:
             - name: SERVER_PORT
               value: "8000"

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: master
+  labels:
+    app: pricecollector
+  name: pricecollector
+spec:
+  # do not include replicas in the manifests if you want replicas to be controlled by HPA
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pricecollector
+  template:
+    metadata:
+      labels:
+        app: pricecollector
+    spec:
+      containers:
+        - image: us-west1-docker.pkg.dev/cloud-final-346107/cloud-final-services/pricecollector:master
+          name: pricecollector
+          resources: 
+            limits:
+              cpu: 100m
+              memory: 200Mi
+          volumeMounts:
+            - name: pricecollector-secret
+              mountPath: "/app/config"
+              readOnly: true
+      volumes:
+        - name: pricecollector-secret
+          secret:
+            secretName: pricecollector-secret
+            items:
+              - key: config.yml
+                path: config.yml
