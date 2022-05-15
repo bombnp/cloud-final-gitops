@@ -11,6 +11,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: api-master
+                name: api
                 port:
                   number: 8000

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: master
+  labels:
+    app: discord
+  name: discord
+spec:
+  # do not include replicas in the manifests if you want replicas to be controlled by HPA
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord
+  template:
+    metadata:
+      labels:
+        app: discord
+    spec:
+      containers:
+        - image: us-west1-docker.pkg.dev/cloud-final-346107/cloud-final-services/discord:master
+          imagePullPolicy: Always
+          name: discord
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /app/credentials/credentials.json
+          resources: 
+            limits:
+              cpu: 100m
+              memory: 200Mi
+          volumeMounts:
+            - name: discord-secret
+              mountPath: "/app"
+              readOnly: true
+            - name: gke-pod-default-service-account
+              mountPath: "/app/credentials"
+              readOnly: true
+      volumes:
+        - name: discord-secret
+          secret:
+            secretName: discord-secret
+            items:
+              - key: .env
+                path: .env
+        - name: gke-pod-default-service-account
+          secret:
+            secretName: gke-pod-default-service-account
+            items:
+              - key: credentials.json
+                path: credentials.json
