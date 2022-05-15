@@ -15,6 +15,7 @@ env:
   GKE_ZONE: us-west1-a
   NAMESPACE: ${{ github.event.client_payload.namespace }}
   SERVICE: ${{ github.event.client_payload.service }}
+  SHA: ${{ github.event.client_payload.sha }}
 
 jobs:
   build:
@@ -40,5 +41,5 @@ jobs:
       # Rollout new updates
       - name: Apply and rollout
         run: |-
-          kubectl apply -f ${{ env.NAMESPACE }}/${{ env.SERVICE }}/deployment.yml -n ${{ env.NAMESPACE }}
+          kubectl set image deployment/${{ env.SERVICE }} ${{ env.SERVICE }}=us-west1-docker.pkg.dev/cloud-final-346107/cloud-final-services/${{ env.SERVICE }}:${{ env.SHA }} -n ${{ env.NAMESPACE }}
           kubectl rollout restart deployment/${{ env.SERVICE }} -n ${{ env.NAMESPACE }}
