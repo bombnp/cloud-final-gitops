@@ -21,6 +21,8 @@ spec:
           imagePullPolicy: Always
           name: discord
           env:
+            - name: ENV_PATH
+              value: /app/config/.env
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /app/credentials/credentials.json
           resources: 
@@ -29,7 +31,7 @@ spec:
               memory: 200Mi
           volumeMounts:
             - name: discord-secret
-              mountPath: "/app"
+              mountPath: "/app/config"
               readOnly: true
             - name: gke-pod-default-service-account
               mountPath: "/app/credentials"
