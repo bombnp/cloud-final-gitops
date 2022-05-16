@@ -27,8 +27,8 @@ spec:
               value: /app/credentials/credentials.json
           resources: 
             limits:
-              cpu: 100m
-              memory: 200Mi
+              cpu: 200m
+              memory: 300Mi
           volumeMounts:
             - name: discord-secret
               mountPath: "/app/config"
