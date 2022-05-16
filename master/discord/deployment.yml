@@ -27,7 +27,7 @@ spec:
               value: /app/credentials/credentials.json
           resources: 
             limits:
-              cpu: 400m
+              cpu: 600m
               memory: 400Mi
           volumeMounts:
             - name: discord-secret
