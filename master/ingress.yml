@@ -1,16 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-master
+  name: ingress
   namespace: master
 spec:
-  rules:
-    - http:
-        paths:
-          - path: /*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: api
-                port:
-                  number: 8000
+  defaultBackend:
+    service:
+      name: api
+      port:
+        number: 80
