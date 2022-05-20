@@ -1,5 +1,8 @@
 # cloud-final-gitops
 
+## Disclaimer
+Since the production environment is now official shut down, we decided to make this repo public for reproduction purposes. All private secrets in this repo cannot be used anywhere.
+
 ## To connect to GKE Autopilot cluster
 
 1. Authenticate your gcloud sdk (your account must also have access to Google Cloud project)

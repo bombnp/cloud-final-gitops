@@ -17,7 +17,7 @@ spec:
         app: pricecollector
     spec:
       containers:
-        - image: us-west1-docker.pkg.dev/cloud-final-346107/cloud-final-services/pricecollector:master
+        - image: us-west1-docker.pkg.dev/cloud-final-346107/cloud-final-services/pricecollector
           imagePullPolicy: Always
           name: pricecollector
           env:
